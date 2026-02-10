@@ -250,7 +250,7 @@ _Tip: For dealing with different orientations, I would recommend just setting th
 
 Just to get this covered as well:
 
-https://github.com/user-attachments/assets/f80f2176-0799-4dab-9c2c-8e259eddd3ac
+https://github.com/user-attachments/assets/43d402b4-fa3f-44d0-87ba-f9e9e61758cf
 
 ### Notes on ICC profiles and HDR output
 
