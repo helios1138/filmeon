@@ -227,7 +227,7 @@ So, assuming we go with Compromise 3, let's run through the nodes in the Filmeon
 
 Well, I think that's about it. Let's see it all in action:
 
-https://github.com/user-attachments/assets/a3b654d6-3769-463a-98f9-8379ea85265d
+https://github.com/user-attachments/assets/8d962736-88d7-4b16-8974-ef2e7b3b3076
 
 Some notes on what's happening in the video:
 
