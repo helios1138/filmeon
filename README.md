@@ -227,6 +227,8 @@ So, assuming we go with Compromise 3, let's run through the nodes in the Filmeon
 
 Well, I think that's about it. Let's see it all in action:
 
+(In case of video playback issues, here's a YouTube link https://youtu.be/zlM8PYuJGP0)
+
 https://github.com/user-attachments/assets/8d962736-88d7-4b16-8974-ef2e7b3b3076
 
 Some notes on what's happening in the video:
@@ -249,6 +251,8 @@ _Tip: For dealing with different orientations, I would recommend just setting th
 #### Demonstrating the Compromise 2 workflow
 
 Just to get this covered as well:
+
+(In case of video playback issues, here's a YouTube link https://youtu.be/Yfj6dnuRVpc)
 
 https://github.com/user-attachments/assets/43d402b4-fa3f-44d0-87ba-f9e9e61758cf
 
