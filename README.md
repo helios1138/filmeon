@@ -33,7 +33,7 @@ Instead, we first convert the negative to a roughly linear representation of the
 
 ### Tone curve
 
-Let's use a simulated scan of a greyscale gradient shot on Kodak Portra 400 to see what we're doing on Resolve's Waveform scope. This is what a simple inversion would look like, if you somehow knew exactly how to adjust the curves directly:
+Let's use a simulated scan of a greyscale gradient shot on Kodak Portra 400 to see what we're doing on Resolve's Waveform scope (you can also find these simulated scans for a few different stocks in the [simulated-scans](./simulated-scans) folder). This is what a simple inversion would look like if you somehow knew exactly how to adjust the curves directly:
 
 <img src="./img/curve-fit.gif" width="400" />
 
@@ -45,11 +45,13 @@ If we convert our simulated scan into density space, we can see them more clearl
 
 We can see that the majority of the film's dynamic range now lies on three straight lines. They are offset from each other and have slightly different slopes (gammas). Additionally, they have a compressed region at the bottom (the toe) and the top (the shoulder).
 
-_The shoulder is not actually shown here (nor on the chart that Kodak published for Portra 400, from which our simulated scan is derived), but it's there, in the exposure range beyond to the right. I did, however, choose the chart that intentionally omits it to simplify the visualization, since we don't model the film's shoulder (more on that later)._
+_The shoulder is not actually shown here (nor on the chart that Kodak published for Portra 400, from which our simulated scan is derived), but it's there, in the exposure range beyond to the right. I did, however, choose the chart that intentionally omits it to simplify the visualization, since we don't model the film's shoulder (more on that later).
 
 Here is where the first property of the scanner might come into play - the veiling glare (or flare). This is the stray light that can bounce around inside the scanner's optical system and illuminate the film from the same side as the sensor (where we don't want it) or, otherwise, the light that is scattered inside the film strip itself, especially if the light source is positioned very close to the film. This is not much of an issue in a well-designed DSLR scanning setup, but it is more pronounced in cheaper consumer film scanners (such as Plustek OpticFilm series). We model this effect as an additive (offset) in the scan (transmittance) space, which translates to a non-linear shoulder-like compression in highlights in density space. Worse still, it's different per channel, resulting in a color cast in highlights. Let's simulate this effect in our scan:
 
 <img src="./img/glare-demo.gif" width="400" />
+
+_Even though the flare correction controls are not modeling the film shoulder per se, the non-linear transformation they achieve in denisty space allows you to unbend (linearize) and neutralize/balance the actual film shoulder if you choose to, even though it might not be necessary with respect to the final (creative) output, I'll touch on that a bit later._
 
 Now that we have a more realistic (worst-case scenario) scan, we can balance and linearize the density curves. In our workflow, we do this by color-picking the film base (minimum density $D_{min}$) and two neutral points in the reference scene, then adjusting the glare compensation per channel, and linearizing the film's toe (if necessary, more on that later).
 
@@ -73,7 +75,7 @@ _This is also the formula used in DaVinci Resolve's built-in (CST) Cineon Log-to
 
 The second (better) approach, sometimes referred to as Josh Pines' formula, uses a single mid-grey (18%) anchor point. This value (defaults to $D=0.7$) is mapped to $E=0.18$, and the rest of the exposure values fall where they may according to the chosen gamma (again, defaults to $\gamma=0.6$); there are no white or black points. Toe linearization is necessary in this case to represent scene shadows accurately (though, of course, you can skip it if you want to preserve the film's raised blacks creatively).
 
-And finally, once we have our scene-referred exposure values, we can transform/tone-map to display-referred space, e.g., by applying the reference OOTF to improve shadow rendering and adjusting highlight roll-off, so that $E>1.0$ values fit within the target range (SDR or a specific peak HDR brightness). This is also one reason why we didn't model the shoulder of the actual negative - the tone-mapping ("print" shoulder) is going to either compress (or un-compress, depending on the settings) the highlights anyway, depending on the desired output.
+And finally, once we have our scene-referred exposure values, we can transform/tone-map to display-referred space, e.g., by applying the reference OOTF to improve shadow rendering and adjusting highlight roll-off, so that $E>1.0$ values fit within the target range (SDR or a specific peak HDR brightness). This is also one reason why we didn't model the shoulder of the actual negative - the tone-mapping ("print" shoulder) is going to either compress (or un-compress, depending on the settings) the highlights anyway, depending on the desired output. (But as I mentioned before, you can use glare compensation controls to effectively un-compress the shoulder in density space if you want to)
 
 <img src="./img/o-srgb.png" width="400" /> <img src="./img/o-hdr.png" width="400" />
 
