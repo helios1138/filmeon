@@ -4,6 +4,18 @@
 
 <p align="center">Physically grounded color-managed HDR-capable color negative film inversion model in DaVinci Resolve</p>
 
+> [!TIP]
+> ### 🖥️ Now a standalone web app
+> Evolved and improved
+>
+> **Try it out at [filmeon.app](https://filmeon.app)** →
+>
+> <a href="https://filmeon.app" target="_blank"><img src="./img/filmeon-web.jpg" width="600" /></a>
+
+_The rest of this page documents the original Resolve plugin._
+
+---
+
 - [What is this](#what-is-this)
 - [The theory behind it](#the-theory-behind-it)
   - [Tone curve](#tone-curve)
